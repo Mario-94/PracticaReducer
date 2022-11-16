@@ -12,7 +12,7 @@ export const ShoppingCart = () => {
   const [state, dispatch] = useReducer(shoppingReducer, shoppingCartInitial);
 
   //Estos elementos hacen referencia a las variables que estan en shoppingReducers
-  const { products, cart, importeTotal } = state;
+  const { products, cart, totalCarritoC } = state;
   const addToCart = (id) => {
     // console.log(id);
     dispatch({ type: TYPES.ADD_TO_CART, payload: id });
@@ -28,10 +28,7 @@ export const ShoppingCart = () => {
   const clearCart = () => {
     dispatch({ type: TYPES.CLEAR_CART });
   };
-  const importeCart = () => {
-    dispatch({ type: TYPES.TOTALIMPORTE });
-  };
-
+ 
   return (
     <div>
       <h2>Carrito de compras</h2>
@@ -44,13 +41,17 @@ export const ShoppingCart = () => {
       <h3>Carrito</h3>
       <article className="box">
         <button onClick={clearCart}>Limpiar carrito</button>
+        <h3>
+        {/* {console.log(importeCarritoTotal)} */}
+        <TotalImporte data={state.cart} />
+        {/* {console.log(state.totalCarritoC)} */}
+      </h3>
       </article>
+      
       {cart.map((item, index) => (
         <CartItems key={index} data={item} delFromCart={delFromCart} />
       ))}
-      <h3>
-        {state.importeTotal}
-      </h3>
+     
     </div>
   );
 };

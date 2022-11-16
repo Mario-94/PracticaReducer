@@ -9,11 +9,11 @@ export const shoppingCartInitial = {
         { id: 6, name: "Producto 6", price: 600 },
     ],
     cart: [],
-    importeTotal: 0,
-    cantidad: 0
+   
 }
 
 export function shoppingReducer(state, action) {
+    //importante el orden en que se despachan las acciones, 
     switch (action.type) {
         case TYPES.ADD_TO_CART: {
             let newItem = state.products.find(product => product.id === action.payload);
@@ -37,6 +37,8 @@ export function shoppingReducer(state, action) {
                 }
 
         }
+
+
         case TYPES.REMOVE_ONE_FROM_CART: {
             let itemToDelete = state.cart.find(item => item.id === action.payload)
             return itemToDelete.quantity > 1
@@ -58,19 +60,15 @@ export function shoppingReducer(state, action) {
         case TYPES.REMOVE_ALL_FROM_CART: {
             return {
                 ...state,
-                cart: state.cart.filter(item => item.id !== action.payload)
-            }
-
+                cart: state.cart.filter((item) => item.id !== action.payload),
+            };
         }
-        case TYPES.TOTALIMPORTE: {
-            return {
-                cantidad:state.cantidad+1
-            }
 
-        }
         case TYPES.CLEAR_CART:
             // regresamos al estado inicial, que en este caso es la variable shoppingCartInitial
             return shoppingCartInitial;
+
+      
         default:
             return state;
     }
